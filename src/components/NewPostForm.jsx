@@ -1,39 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const NewPostForm = ({ onNewPostCreated }) => {
+const NewPostForm = ({ addNewPost }) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const handleNavigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const newPost = {
       title,
       body,
-      userId: 11,
-      id: 101
+      userId: 'Egorov Ivan Alekseevich'
     };
-
-    try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newPost)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add new post');
-      }
-
-      const data = await response.json();
-      onNewPostCreated(data); 
-      handleNavigate('/');
-    } catch (error) {
-      console.error('Error adding new post:', error);
-    }
+    addNewPost(newPost);
+    handleNavigate('/');
   };
 
   return (
@@ -46,19 +27,15 @@ const NewPostForm = ({ onNewPostCreated }) => {
           value={title}
           onChange={e => setTitle(e.target.value)}
           className="input-title"
-          required
         />
         <textarea
           placeholder="Body"
           value={body}
           onChange={e => setBody(e.target.value)}
           className="textarea-body"
-          required
         ></textarea>
         <button type="submit" className="submit-button">Publish</button>
       </form>
     </div>
   );
 };
-
-export default NewPostForm;
