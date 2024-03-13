@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const NewPostForm = ({ addNewPost }) => {
+export const NewPostForm = ({ handleNewPostCreated }) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const handleNavigate = useNavigate();
@@ -11,9 +11,9 @@ const NewPostForm = ({ addNewPost }) => {
     const newPost = {
       title,
       body,
-      userId: 'Egorov Ivan Alekseevich'
+      userId: 'Your Full Name'
     };
-    addNewPost(newPost);
+    handleNewPostCreated(newPost);
     handleNavigate('/');
   };
 

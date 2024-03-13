@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Posts = () => {
-  const [posts, setPosts] = useState([]);
+const Posts = ({ posts }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(data => setPosts(data));
-
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(data => setUsers(data));
@@ -19,7 +14,7 @@ const Posts = () => {
     const user = users.find(user => user.id === userId);
     return user ? user.name : 'Unknown';
   };
-  console.log('posts', posts)
+
   return (
     <div className="container">
       <h2 className="head">Posts</h2>
